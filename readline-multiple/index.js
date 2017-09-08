@@ -11,25 +11,35 @@
    }]
  */
 
-const readlineSync = require('readline-sync')
+var readlineSync = require('readline-sync')
 
 
 /**
  * @param {*} linesData 
  * @param {*} questonTpl 
  */
-function readMultipeLines(linesData, questonTpl) {
-  questonTpl = questonTpl || (
-    () => linesData.map(data => `${data.pressKey} ${data.display}`).join('\n')
-  )
-  const input = readlineSync.question(
-    questonTpl(linesData)
+function readMultipeLines(linesData, questionTpl) {
+  questionTpl = questionTpl || function (linesData) {
+    return linesData.map(
+      function (data) {
+        return data.pressKey + '. ' + data.display
+      }
+    )
+      .join('\n')
+      .concat('\n')
+  }
+  var input = readlineSync.question(
+    questionTpl(linesData)
   )
 
   return {
     then(callback) {
-      const inputs = input.split(' ')
-      const results = linesData.filter(item => inputs.includes(item.pressKey))
+      var inputs = input.split(' ')
+      var results = linesData.filter(
+        function (item) {
+          return inputs.includes(item.pressKey)
+        }
+      )
       return callback && callback(results)
     }
   }
