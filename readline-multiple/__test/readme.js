@@ -1,4 +1,4 @@
-var readMultipeLines = require('readline-multiple')
+var readMultipeLines = require('../index.js')
 
 var linesData = [
   {
