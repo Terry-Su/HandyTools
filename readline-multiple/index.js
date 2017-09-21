@@ -28,9 +28,8 @@ function readMultipeLines(linesData, questionTpl) {
       .join('\n')
       .concat('\n')
   }
-  var input = readlineSync.question(
-    questionTpl(linesData)
-  )
+  console.log(questionTpl(linesData))
+  var input = readlineSync.question('')
 
   return {
     then(callback) {
